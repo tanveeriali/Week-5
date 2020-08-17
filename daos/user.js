@@ -6,11 +6,11 @@ const salt = 10;
 module.exports = {};
 
 module.exports.create = async (email, password) => {
-  const passwordHash = await bcrypt.hash(password, 10);
+  const hashed = await bcrypt.hash(password, salt);
   try {
     const newUser = await User.create({
       email: email,
-      password: passwordHash,
+      password: hashed,
       roles: ["user"],
     });
     return newUser;
@@ -42,11 +42,8 @@ module.exports.getUserExceptPassword = async (email) => {
 
 module.exports.changePassword = async (email, password) => {
   try {
-    const newPasswordHash = await bcrypt.hash(password, 10);
-    const updatedUser = User.updateOne(
-      { email: email },
-      { password: newPasswordHash }
-    );
+    const hashed = await bcrypt.hash(password, salt);
+    const updatedUser = User.updateOne({ email: email }, { password: hashed });
     return updatedUser;
   } catch (e) {
     throw e;
