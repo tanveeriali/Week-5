@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const mongoose = require("mongoose");
 const router = Router();
-const userDAO = require("../daos/user");
 const itemsDAO = require("../daos/items");
 const secret = "shhhhhh do not tell anyone this secret"; // wouldn't do this for real
 const jwt = require("jsonwebtoken");
