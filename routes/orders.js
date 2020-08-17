@@ -42,7 +42,6 @@ router.post("/", authorizationCheck, async (req, res, next) => {
 // Get all orders
 router.get("/", authorizationCheck, async (req, res, next) => {
   if (req.user.roles.includes("admin") == true) {
-    // get all orders
     const orders = await ordersDAO.getOrders();
     if (orders) {
       res.json(orders);
@@ -50,7 +49,6 @@ router.get("/", authorizationCheck, async (req, res, next) => {
       res.sendStatus(404);
     }
   } else {
-    // get orders of that user
     const userId = req.user._id;
     const userOrder = await ordersDAO.getUserOrders(userId);
     if (userOrder) {
