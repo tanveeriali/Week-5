@@ -11,8 +11,8 @@ const authorizationCheck = async (req, res, next) => {
     res.sendStatus(401);
   } else {
     const token = header.split(" ")[1];
-    const user = jwt.verify(token, secret, (err, tokenNew) => {
-      if (err) {
+    const userCheck = jwt.verify(token, secret, (e, tokenNew) => {
+      if (e) {
         res.sendStatus(401);
       } else {
         req.user = tokenNew;
